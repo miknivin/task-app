@@ -1,0 +1,67 @@
+<mat-dialog-content>
+  <form
+    #taskForm="ngForm"
+    class="flex flex-col gap-5 w-full md:w-96"
+    (ngSubmit)="addTask(taskForm)"
+  >
+    <!-- task name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Task Name</mat-label>
+      <input matInput name="taskName" ngModel required />
+      <mat-error> Task name is required </mat-error>
+    </mat-form-field>
+    <!-- task Date -->
+    <mat-form-field class="w-full">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [matDatepickerFilter]="dateFilter"
+        name="dueDate"
+        ngModel
+        required
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker
+        #picker
+        (dateInput)="dateSelected($event)"
+      ></mat-datepicker>
+      <mat-error> Due Date is required </mat-error>
+    </mat-form-field>
+    <!-- task time -->
+    <mat-form-field appearance="fill">
+      <mat-label>Due Time</mat-label>
+      <input
+        matInput
+        [ngxTimepicker]="timepicker"
+        name="dueTime"
+        ngModel
+        required
+      />
+      <mat-icon matSuffix (click)="timepicker.open()">access_time</mat-icon>
+      <ngx-material-timepicker
+        #timepicker
+        class="relative z-[999999]"
+      ></ngx-material-timepicker>
+      <mat-error> Due time is required </mat-error>
+    </mat-form-field>
+    <!-- task description -->
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput name="description" ngModel></textarea>
+    </mat-form-field>
+
+    <button
+      mat-button
+      type="submit"
+      color="primary"
+      [disabled]="taskForm.invalid"
+      class="btn !bg-gray-300"
+    >
+      Add Task
+    </button>
+  </form>
+</mat-dialog-content>

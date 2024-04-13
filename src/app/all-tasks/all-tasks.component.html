@@ -1,0 +1,83 @@
+<div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 m-4">
+    <!-- CARD -->
+    <div
+      *ngFor="let task of allTasks"
+      class="overflow-hidden shadow-sm flex flex-col p-5 relative bg-slate-200 rounded-box"
+    >
+      <div class="px-6 py-4 mb-auto">
+        <h1
+          [ngClass]="{
+            'text-red-500': task.status === 'pending',
+            'text-success': task.status === 'completed'
+          }"
+          class="font-medium text-sm inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-2"
+        >
+          {{ task?.name }}
+          <button
+            (click)="openDialog(task?.id)"
+            class="ms-1 !text-sm text-indigo-700"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            (click)="openConfirmDialog(task?.id)"
+            class="ms-1 text-red-600"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </h1>
+        <p class="text-gray-500">{{ task?.description }}</p>
+      </div>
+      <!-- checkbox -->
+      <div class="absolute top-2 left-auto right-2">
+        <mat-checkbox
+          (change)="markAsComplete(task.id)"
+          color="primary"
+          [checked]="task.status === 'completed'"
+          [matTooltip]="
+            task.status === 'completed'
+              ? 'Mark as incomplete'
+              : 'Mark as complete'
+          "
+        >
+        </mat-checkbox>
+      </div>
+
+      <div
+        class="px-6 py-3 flex flex-row items-center justify-between bg-gray-100"
+      >
+        <span
+          href="#"
+          class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center"
+        >
+          <svg
+            height="13px"
+            width="13px"
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 512 512"
+            style="enable-background: new 0 0 512 512"
+            xml:space="preserve"
+          >
+            <g>
+              <g>
+                <path
+                  d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M277.333,256 c0,11.797-9.536,21.333-21.333,21.333h-85.333c-11.797,0-21.333-9.536-21.333-21.333s9.536-21.333,21.333-21.333h64v-128 c0-11.797,9.536-21.333,21.333-21.333s21.333,9.536,21.333,21.333V256z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+          <span class="ml-1">{{ task?.date | date: 'mediumDate' }},{{ task?.time }}</span>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="allTasks.length === 0" class="text-gray-600 font-semibold">
+      <h1>There are no tasks</h1>
+    </div>
+  </div>
+</div>

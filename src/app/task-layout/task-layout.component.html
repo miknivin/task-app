@@ -1,0 +1,21 @@
+<section id="taskLayout" class="min-h-screen">
+  <div class="max-w-screen-lg mx-auto bg-slate-100 p-4 rounded-box m-8">
+    <mat-tab-group
+      [selectedIndex]="selectedTabIndex"
+      (selectedTabChange)="handleTabChange($event)"
+    >
+      <mat-tab label="Active Tasks">
+        <app-active-tasks></app-active-tasks>
+      </mat-tab>
+      <mat-tab label="Pending Tasks">
+        <app-pending-tasks></app-pending-tasks>
+      </mat-tab>
+      <mat-tab label="Completed tasks">
+        <app-completed-tasks></app-completed-tasks>
+      </mat-tab>
+      <mat-tab label="All Tasks">
+        <app-all-tasks></app-all-tasks>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>
